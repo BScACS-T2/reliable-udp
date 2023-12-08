@@ -16,7 +16,6 @@ typedef struct header
     uint8_t                     flags;
     uint8_t                     window_size;
     uint16_t                    checksum;
-    struct timeval              tv;
 } header;
 
 typedef struct packet

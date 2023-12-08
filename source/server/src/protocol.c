@@ -83,7 +83,7 @@ int send_syn_packet(int sockfd, struct sockaddr_storage *addr, FILE *fp,
     packet_to_send.hd.seq_number            = create_sequence_number(0, 0);
     packet_to_send.hd.ack_number            = create_ack_number(0, 0);
     packet_to_send.hd.flags                 = SYN;
-    packet_to_send.hd.window_size           = window_size;
+//    packet_to_send.hd.window_size           = window_size;
     memset(packet_to_send.data, 0, sizeof(packet_to_send.data));
 
     send_packet(sockfd, addr, &packet_to_send, fp, err);
@@ -99,7 +99,7 @@ int send_syn_ack_packet(int sockfd, struct sockaddr_storage *addr, struct packet
     packet_to_send.hd.seq_number        = create_second_handshake_seq_number();
     packet_to_send.hd.ack_number        = create_ack_number(pt->hd.seq_number, 1);
     packet_to_send.hd.flags             = create_flags(pt->hd.flags);
-    packet_to_send.hd.window_size       = window_size;
+//    packet_to_send.hd.window_size       = window_size;
     memset(packet_to_send.data, 0, sizeof(packet_to_send.data));
 
     send_packet(sockfd, addr, &packet_to_send, fp, err);
@@ -115,7 +115,7 @@ int create_syn_ack_packet(int sockfd, struct sockaddr_storage *addr, struct pack
     packet_to_send.hd.seq_number        = create_second_handshake_seq_number();
     packet_to_send.hd.ack_number        = create_ack_number(pt->hd.seq_number, 1);
     packet_to_send.hd.flags             = create_flags(pt->hd.flags);
-    packet_to_send.hd.window_size       = window_size;
+//    packet_to_send.hd.window_size       = window_size;
     memset(packet_to_send.data, 0, sizeof(packet_to_send.data));
 
     *pt = packet_to_send;
@@ -131,7 +131,7 @@ int finish_handshake_ack(int sockfd, struct sockaddr_storage *addr, struct packe
 //    packet_to_send.hd.seq_number        = create_sequence_number(previous_seq_number(window), 1);
     packet_to_send.hd.ack_number        = create_ack_number(pt->hd.seq_number, 1);
     packet_to_send.hd.flags             = create_flags(pt->hd.flags);
-    packet_to_send.hd.window_size       = window_size;
+//    packet_to_send.hd.window_size       = window_size;
     memset(packet_to_send.data, 0, sizeof(packet_to_send.data));
 
     send_packet(sockfd, addr, &packet_to_send, fp, err);
@@ -147,7 +147,7 @@ int send_handshake_ack_packet(int sockfd, struct sockaddr_storage *addr,
     packet_to_send.hd.seq_number        = create_sequence_number(pt->hd.ack_number, 0);
     packet_to_send.hd.ack_number        = create_ack_number(pt->hd.seq_number, 1);
     packet_to_send.hd.flags             = create_flags(pt->hd.flags);
-    packet_to_send.hd.window_size       = window_size;
+//    packet_to_send.hd.window_size       = window_size;
     memset(packet_to_send.data, 0, sizeof(packet_to_send.data));
 
     send_packet(sockfd, addr, &packet_to_send, fp, err);
@@ -163,7 +163,7 @@ int send_data_packet(int sockfd, struct sockaddr_storage *addr, char *data,
 //    packet_to_send.hd.seq_number        = create_sequence_number(previous_seq_number(window), previous_data_size(window));
 //    packet_to_send.hd.ack_number        = create_ack_number(previous_ack_number(window), 0);
     packet_to_send.hd.flags             = PSHACK;
-    packet_to_send.hd.window_size       = window_size;
+//    packet_to_send.hd.window_size       = window_size;
     strcpy(packet_to_send.data, data);
 
     send_packet(sockfd, addr, &packet_to_send, fp, err);
@@ -179,7 +179,7 @@ int send_data_ack_packet(int sockfd, struct sockaddr_storage *addr, struct packe
     packet_to_send.hd.seq_number        = create_sequence_number(pt->hd.ack_number, 0);
     packet_to_send.hd.ack_number        = create_ack_number(pt->hd.seq_number, strlen(pt->data));
     packet_to_send.hd.flags             = create_flags(pt->hd.flags);
-    packet_to_send.hd.window_size       = window_size;
+//    packet_to_send.hd.window_size       = window_size;
     memset(packet_to_send.data, 0, sizeof(packet_to_send.data));
 
     send_packet(sockfd, addr, &packet_to_send, fp, err);
@@ -203,7 +203,7 @@ int initiate_termination(int sockfd, struct sockaddr_storage *addr,
 //    packet_to_send.hd.seq_number            = create_sequence_number(previous_seq_number(window), previous_data_size(window));
 //    packet_to_send.hd.ack_number            = create_ack_number(previous_ack_number(window), previous_data_size(window));
     packet_to_send.hd.flags                 = FINACK;
-    packet_to_send.hd.window_size           = window_size;
+//    packet_to_send.hd.window_size           = window_size;
     memset(packet_to_send.data, 0, sizeof(packet_to_send.data));
 
     send_packet(sockfd, addr, &packet_to_send, fp, err);

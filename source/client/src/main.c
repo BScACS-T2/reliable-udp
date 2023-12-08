@@ -452,7 +452,7 @@ static int check_window_handler(struct fsm_context *context, struct fsm_error *e
     ctx = context;
     SET_TRACE(context, "", "STATE_CHECK_WINDOW");
 
-    if (!is_window_available || ctx -> args -> is_buffered)
+    if (!is_window_empty() || ctx -> args -> is_buffered)
     {
         return STATE_ADD_PACKET_TO_BUFFER;
     }
@@ -644,7 +644,7 @@ static int check_ack_number_handler(struct fsm_context *context, struct fsm_erro
     if (result == RECV_ACK)
     {
         printf("received ack\n");
-        if (check_ack_number(ctx -> args -> window[first_unacked_packet].expected_ack_number,
+        if (check_ack_number(get_expected_ack_number(ctx -> args -> window),
                              ctx -> args -> temp_packet.hd.ack_number, ctx -> args -> window))
         {
             return STATE_REMOVE_FROM_WINDOW;
@@ -786,7 +786,7 @@ void *init_window_checker_function(void *ptr)
 
     while (ctx -> args -> head != NULL)
     {
-        if (is_window_available)
+        if (is_window_empty())
         {
             struct packet pt;
 

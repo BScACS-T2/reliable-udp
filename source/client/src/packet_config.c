@@ -36,6 +36,11 @@ int window_empty(struct sent_packet *window)
     return 0;
 }
 
+int is_window_empty(void)
+{
+    return is_window_available;
+}
+
 int first_packet_ring_buffer(struct sent_packet *window)
 {
     if (!window[first_empty_packet].is_packet_full)
@@ -126,7 +131,7 @@ int send_packet(int sockfd, struct sockaddr_storage *addr, struct sent_packet *w
 
 int add_packet_to_window(struct sent_packet *window, struct packet *pt)
 {
-    gettimeofday(&pt->hd.tv, NULL);
+//    gettimeofday(&pt->hd.tv, NULL);
     window[first_empty_packet].pt                           = *pt;
 
     if (pt->hd.flags == ACK)
@@ -269,6 +274,11 @@ int remove_greater_index(struct sent_packet *window, uint8_t index)
    }
 
    return 0;
+}
+
+uint32_t get_expected_ack_number(struct sent_packet *window)
+{
+   return window[first_unacked_packet].expected_ack_number;
 }
 
 uint32_t create_second_handshake_seq_number(void)

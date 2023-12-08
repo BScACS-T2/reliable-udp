@@ -14,12 +14,6 @@
 
 #define DATA_SIZE 512
 
-uint8_t                     first_empty_packet;
-uint8_t                     first_unacked_packet;
-uint8_t                     is_window_available;
-uint8_t                     window_size;
-struct sockaddr_storage     *list_of_connections;
-
 typedef struct header
 {
     uint32_t                    seq_number;
@@ -27,7 +21,6 @@ typedef struct header
     uint8_t                     flags;
     uint8_t                     window_size;
     uint16_t                    checksum;
-    struct timeval              tv;
 } header;
 
 typedef struct packet
