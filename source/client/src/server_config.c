@@ -198,9 +198,9 @@ void *safe_malloc(uint32_t size, struct fsm_error *err)
 
 int send_stats_gui(int sockfd, int stat)
 {
-    ssize_t result;
+    ssize_t     result;
 
-    result          = write(sockfd, &stat, sizeof(stat));
+    result      = write(sockfd, &stat, sizeof(stat));
 
     if (result <= 0)
     {

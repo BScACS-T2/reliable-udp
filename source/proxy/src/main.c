@@ -112,10 +112,7 @@ typedef struct arguments
     FILE                    *sent_data, *received_data;
 } arguments;
 
-
-
 pthread_mutex_t num_of_threads_mutex = PTHREAD_MUTEX_INITIALIZER;
-
 
 int main(int argc, char **argv)
 {

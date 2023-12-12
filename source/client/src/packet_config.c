@@ -333,7 +333,7 @@ int check_ack_number(uint32_t expected_ack_number, uint32_t ack_number, struct s
         return FALSE;
     }
 
-    return  check_ack_number_equal(expected_ack_number, ack_number)||
+    return  check_ack_number_equal(expected_ack_number, ack_number) ||
             check_ack_number_greater(expected_ack_number, ack_number, window);
 }
 

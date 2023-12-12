@@ -550,10 +550,13 @@ static int create_timer_thread_handler(struct fsm_context *context, struct fsm_e
 
 static int cleanup_handler(struct fsm_context *context, struct fsm_error *err)
 {
+    exit_flag++;
     struct fsm_context *ctx;
     ctx = context;
     SET_TRACE(context, "in cleanup handler", "STATE_CLEANUP");
+
     pthread_join(ctx -> args -> recv_thread, NULL);
+    pthread_join(ctx -> args -> accept_gui_thread, NULL);
 
     for (int i = 0; i < ctx -> args -> num_of_threads; i++)
     {
@@ -583,7 +586,6 @@ static int cleanup_handler(struct fsm_context *context, struct fsm_error *err)
             printf("close socket error\n");
         }
     }
-
 
     free(ctx -> args -> thread_pool);
     free(ctx -> args -> window);
@@ -821,6 +823,7 @@ void *init_gui_function(void *ptr)
         ctx->args->is_connected_gui++;
     }
 
+    printf("leaving GUI thread\n");
     return NULL;
 }
 
